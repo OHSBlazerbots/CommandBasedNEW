@@ -4,6 +4,8 @@
  */
 package edu.wpi.first.wpilibj.templates.commands;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 
 /**
  *
@@ -27,9 +29,11 @@ public class ToggleBallPickerDown extends CommandBase {
 
         if(ballPicker.isPickerOff() || ballPicker.isPickerUp()){ //Checks state
             ballPicker.ballPickerDown();
+            SmartDashboard.putString("Lights:", "Off");
         }
         else{
             ballPicker.ballPickerOff();
+            SmartDashboard.putString("Lights:", "Off");
         }
     }
 
