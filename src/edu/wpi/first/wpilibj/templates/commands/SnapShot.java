@@ -8,6 +8,8 @@ import edu.wpi.first.wpilibj.image.BinaryImage;
 import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.templates.commands.CommandBase;
 
 /**
  *
@@ -39,7 +41,7 @@ public class SnapShot extends CommandBase {
             if(convexImage != null) convexImage.write("/tmp/convex.bmp");
             BinaryImage finalImage = targeting.filterForValidRectangles(convexImage);
             if(finalImage != null) finalImage.write("/tmp/final.bmp");
-
+            //SmartDashboard.putData("Processed Image", finalImage);
             double best_score = 0;
             int best_x = 0;
             int best_y = 0;
@@ -54,6 +56,7 @@ public class SnapShot extends CommandBase {
                 }
             }
             System.out.println("Best Scores: " + best_x + " , " + best_y);
+            SmartDashboard.putString("bestTarget", "Best Scores: " + best_x + " , " + best_y);
 
             finalImage.free();
             convexImage.free();
