@@ -33,7 +33,7 @@ public class SnapShot extends CommandBase {
             System.out.println("clic");
             ColorImage temp = CommandBase.targeting.processImage();
             if(temp != null) temp.write("/tmp/processed.bmp");
-            BinaryImage thresholdImage =  temp.thresholdHSL(128, 192, 0, 255, 0, 255);
+            BinaryImage thresholdImage =  temp.thresholdHSL(0, 155, 0, 255, 0, 255);
             if(thresholdImage != null) thresholdImage.write("/tmp/thresh.bmp");
             BinaryImage filterImage = thresholdImage.removeSmallObjects(false, 2);
             if(filterImage != null) filterImage.write("/tmp/filter.bmp");
@@ -45,6 +45,8 @@ public class SnapShot extends CommandBase {
             double best_score = 0;
             int best_x = 0;
             int best_y = 0;
+            int bestWidth = 1000000;
+            double distance = 0;
 
             ParticleAnalysisReport[] reports = finalImage.getOrderedParticleAnalysisReports();  // get list of results
             for (int i = 0; i < reports.length; i++) {                                // print results
@@ -53,10 +55,13 @@ public class SnapShot extends CommandBase {
                 if(r.particleQuality > best_score) {
                     best_x = r.center_mass_x;
                     best_y = r.center_mass_y;
+                    bestWidth = r.boundingRectWidth;
                 }
             }
             System.out.println("Best Scores: " + best_x + " , " + best_y);
+            distance = 2.0833*640/bestWidth/2/Math.tan(21.75);
             SmartDashboard.putString("bestTarget", "Best Scores: " + best_x + " , " + best_y);
+            SmartDashboard.putString("Distance: ", distance + " ft");
 
             finalImage.free();
             convexImage.free();
