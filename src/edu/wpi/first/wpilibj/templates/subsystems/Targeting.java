@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.image.*;
 import edu.wpi.first.wpilibj.image.CriteriaCollection;
 import edu.wpi.first.wpilibj.camera.AxisCamera;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import java.lang.Math;
 
 // TODO: FIX THIS!
@@ -34,13 +35,14 @@ public class Targeting extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
         try{
             //AxisCamera camera = AxisCamera.getInstance();
+            SmartDashboard.putString("State: ", "Getting Image");
             ColorImage image = camera.getImage();
-            BinaryImage everything = image.thresholdHSL(0, 255, 0, 255, 0, 255);
-            everything.write("/tmp/everything.jpg");
-            BinaryImage low = image.thresholdHSL(0, 125, 0, 255, 0, 255);
-            low.write("/tmp/low.jpg");
-            BinaryImage high = image.thresholdHSL(125, 255, 0, 255, 0, 255);
-            high.write("/tmp/high.jpg");
+            //BinaryImage everything = image.thresholdHSL(0, 255, 0, 255, 0, 255);
+            //everything.write("/tmp/everything.jpg");
+            //BinaryImage low = image.thresholdHSL(0, 125, 0, 255, 0, 255);
+            //low.write("/tmp/low.jpg");
+            //BinaryImage high = image.thresholdHSL(125, 255, 0, 255, 0, 255);
+            //high.write("/tmp/high.jpg");
             //BinaryImage theMask = image.thresholdHSL(210, 255, 190, 220, 150, 190);
             return image;
         }
