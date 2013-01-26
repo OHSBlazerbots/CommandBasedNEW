@@ -61,18 +61,22 @@ public class Targeting extends Subsystem {
     public BinaryImage filterForValidRectangles(BinaryImage particleImage) {
         try{
             CriteriaCollection rectangleCriteria = new CriteriaCollection();
-            rectangleCriteria.addCriteria(NIVision.MeasurementType.IMAQ_MT_COMPACTNESS_FACTOR,
-				      50,
-				      100,
-				      false);
-            rectangleCriteria.addCriteria(NIVision.MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES,
-				      50,
-				      100,
-				      false);
-            rectangleCriteria.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA_BY_PARTICLE_AND_HOLES_AREA,
-				      64,
-				      100,
-				      false);
+            //rectangleCriteria.addCriteria(NIVision.MeasurementType.IMAQ_MT_COMPACTNESS_FACTOR,
+		//		      50,
+		//		      100,
+		//		      false);
+            //rectangleCriteria.addCriteria(NIVision.MeasurementType.IMAQ_MT_RATIO_OF_EQUIVALENT_RECT_SIDES,
+		//		      1,
+		//		      3,
+		//		      false);
+            //rectangleCriteria.addCriteria(NIVision.MeasurementType.IMAQ_MT_AREA_BY_PARTICLE_AND_HOLES_AREA,
+		//		      90,
+		//		      100,
+		//		      true);
+            rectangleCriteria.addCriteria(NIVision.MeasurementType.IMAQ_MT_HYDRAULIC_RADIUS,
+                    3,
+                    5,
+                    true);
             return particleImage.particleFilter(rectangleCriteria);
         }
         catch(Exception e){

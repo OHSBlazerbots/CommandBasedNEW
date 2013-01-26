@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.image.ColorImage;
 import edu.wpi.first.wpilibj.image.NIVisionException;
 import edu.wpi.first.wpilibj.image.ParticleAnalysisReport;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.templates.commands.CommandBase;
+//import java.lang.*;
 
 /**
  *
@@ -34,7 +34,7 @@ public class SnapShot extends CommandBase {
             ColorImage temp = CommandBase.targeting.processImage();
             //if(temp != null) temp.write("/tmp/processed.bmp");
             SmartDashboard.putString("State: ", "Processing...");
-            BinaryImage thresholdImage =  temp.thresholdHSL(136, 182, 45, 255, 116, 255);
+            BinaryImage thresholdImage =  temp.thresholdHSL(48, 128, 45, 255, 128, 255);
             if(thresholdImage != null) thresholdImage.write("/tmp/thresh.bmp");
             BinaryImage filterImage = thresholdImage.removeSmallObjects(false, 2);
             if(filterImage != null) filterImage.write("/tmp/filter.bmp");
@@ -48,8 +48,8 @@ public class SnapShot extends CommandBase {
             int best_x = 0;
             int best_y = 0;
             int bestWidth = 1000000;
+            int bestHeight = 1000000;
             double distance = 0;
-
             ParticleAnalysisReport[] reports = finalImage.getOrderedParticleAnalysisReports();  // get list of results
             for (int i = 0; i < reports.length; i++) {                                // print results
                 ParticleAnalysisReport r = reports[i];
@@ -58,13 +58,18 @@ public class SnapShot extends CommandBase {
                     best_x = r.center_mass_x;
                     best_y = r.center_mass_y;
                     bestWidth = r.boundingRectWidth;
+                    bestHeight = r.boundingRectHeight;
                 }
             }
             System.out.println("Best Scores: " + best_x + " , " + best_y);
-            distance = 2.0833*640/bestWidth/2/Math.tan(21.75);
+            //bestWidth = bestWidth/bestHeight * (2/(bestWidth/bestHeight));
+            double correctionFactor = 1.0;
+            double partRatio = bestWidth / bestHeight;
+            //correctionFactor = Math.sin((Math.PI / 2) * (1 - Math.atan(partRatio) / Math.atan(2.0))); //atan doesn't work!
+            distance = 2.0833*640/bestWidth/2/Math.tan(21.75 * Math.PI / 180);
             SmartDashboard.putString("bestTarget", "Best Scores: " + best_x + " , " + best_y);
             SmartDashboard.putString("Distance: ", distance + " ft");
-
+            
             finalImage.free();
             convexImage.free();
             filterImage.free();
