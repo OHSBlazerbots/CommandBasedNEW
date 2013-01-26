@@ -32,8 +32,9 @@ public class SnapShot extends CommandBase {
         try {
             System.out.println("clic");
             ColorImage temp = CommandBase.targeting.processImage();
-            if(temp != null) temp.write("/tmp/processed.bmp");
-            BinaryImage thresholdImage =  temp.thresholdHSL(0, 155, 0, 255, 0, 255);
+            //if(temp != null) temp.write("/tmp/processed.bmp");
+            SmartDashboard.putString("State: ", "Processing...");
+            BinaryImage thresholdImage =  temp.thresholdHSL(136, 182, 45, 255, 116, 255);
             if(thresholdImage != null) thresholdImage.write("/tmp/thresh.bmp");
             BinaryImage filterImage = thresholdImage.removeSmallObjects(false, 2);
             if(filterImage != null) filterImage.write("/tmp/filter.bmp");
@@ -42,6 +43,7 @@ public class SnapShot extends CommandBase {
             BinaryImage finalImage = targeting.filterForValidRectangles(convexImage);
             if(finalImage != null) finalImage.write("/tmp/final.bmp");
             //SmartDashboard.putData("Processed Image", finalImage);
+            SmartDashboard.putString("State: ", "Done");
             double best_score = 0;
             int best_x = 0;
             int best_y = 0;
