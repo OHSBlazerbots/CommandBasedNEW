@@ -7,6 +7,7 @@ package edu.wpi.first.wpilibj.templates.subsystems;
 import edu.wpi.first.wpilibj.Accelerometer;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -26,9 +27,9 @@ public class GyroAccelerometer extends Subsystem {
     }
 
     public GyroAccelerometer(int gyroChannel,int accelerometerXChannel,int accelerometerYChannel){
-        gyro = new Gyro(1, gyroChannel);
-        accelerometerX = new Accelerometer(accelerometerXChannel);
-        accelerometerY = new Accelerometer(accelerometerYChannel);
+        gyro = new Gyro(1, 1);
+        accelerometerX = new Accelerometer(2);
+        accelerometerY = new Accelerometer(2);
     }
 
     public double getAngle(){
@@ -37,6 +38,7 @@ public class GyroAccelerometer extends Subsystem {
 
     public double getAccelerationX(){
         return accelerometerX.getAcceleration();
+       
     }
 
     public double getAccelerationY(){

@@ -34,6 +34,7 @@ public abstract class CommandBase extends Command {
     public static Shooter shooter;
     public static BridgeManipulator arm;
     public static Targeting targeting;
+    public static GyroAccelerometer sensors;
     //public static AxisCamera camera;
 
     /**

@@ -70,6 +70,15 @@ public class SnapShot extends CommandBase {
             SmartDashboard.putString("bestTarget", "Best Scores: " + best_x + " , " + best_y);
             SmartDashboard.putString("Distance: ", distance + " ft");
             
+            double myGyro = CommandBase.sensors.getAngle();
+            SmartDashboard.putString("Gyro", " " + myGyro);
+            
+            double accelerometerX = CommandBase.sensors.getAccelerationX();
+            SmartDashboard.putString("AccelerometerX", " " + accelerometerX);
+            
+            double accelerometerY = CommandBase.sensors.getAccelerationY();
+            SmartDashboard.putString("AccelerometerY", " " + accelerometerY);
+            
             finalImage.free();
             convexImage.free();
             filterImage.free();
